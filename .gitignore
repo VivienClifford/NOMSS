@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/sources/v16
+/.vs/slnx.sqlite
+/.vs
+/API/bin/Debug/net5.0
+/Service/obj
+/UnitTest/obj
+/API/obj
+/API/.vs/API/DesignTimeBuild/.dtbcache.v2
