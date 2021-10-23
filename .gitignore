@@ -10,3 +10,7 @@
 /UnitTest/obj
 /API/obj
 /API/.vs/API/DesignTimeBuild/.dtbcache.v2
+/Service/bin/Debug/net5.0
+/UnitTest/bin/Debug/net5.0
+/Test/bin/Debug/net5.0
+/Test/obj
