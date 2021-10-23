@@ -13,8 +13,25 @@ namespace Service
         /// <returns></returns>
         public static IEnumerable<OrderProduct> ProcessOrders(IEnumerable<OrderProduct> pendingOrders)
         {
-            List<Product> products = pendingOrders.FirstOrDefault().Products;
-            List<Order> orders = pendingOrders.FirstOrDefault().Orders; //TO DO might have multiple orders too
+            List<OrderProduct> processedOrders = new();
+
+            foreach (var pendingOrder in pendingOrders) {
+
+                processedOrders = UpdateStatus(pendingOrder);
+            }
+
+            return processedOrders;
+        }
+
+        /// <summary>
+        /// Updates the order status
+        /// </summary>
+        /// <param name="pendingOrder"></param>
+        /// <returns></returns>
+        private static List<OrderProduct> UpdateStatus(OrderProduct pendingOrder)
+        {
+            List<Product> products = pendingOrder.Products;
+            List<Order> orders = pendingOrder.Orders;
 
             foreach (var order in orders)
             {
@@ -28,16 +45,15 @@ namespace Service
                 }
                 else
                 {
-                    order.Status = nameof(OrderStatusEnum.Unfulfillable); //need to test, need to raise error
+                    order.Status = $"Error: {nameof(OrderStatusEnum.Unfulfillable)}"; //need to test, need to raise error
                 }
 
             }
-
             return new List<OrderProduct>() { new OrderProduct(products, orders) };
         }
 
         /// <summary>
-        ///  Decrements the stock availablity as we go, so the product list always up to date.
+        ///  Decrements the stock quantity as we go, so the product list always up to date.
         ///  Calls ThresholdCalculator to check if we need to restock items / create a purchase order
         /// </summary>
         /// <param name="products"></param>
@@ -52,16 +68,13 @@ namespace Service
                 var stockProduct = updatedProducts.Single(p => p.ProductId == item.ProductId);
                 var itemQuantityAvailable = (stockProduct.QuantityOnHand >= item.Quantity);
 
-                //we need to calculate whether the min threshold has been reached
-                Restock.ThresholdCalculator(stockProduct, order);
-
                 if (itemQuantityAvailable)
                 {
                     stockProduct.QuantityOnHand -= item.Quantity;
                 }
                 else
                 {
-                    return null; //TO DO - can't fulfil order
+                    return null;
                 }
 
             }

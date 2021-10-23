@@ -2,9 +2,6 @@ using System;
 using Xunit;
 using Service;
 using System.Linq;
-using Service.Models;
-using System.Collections.Generic;
-using Test;
 
 namespace UnitTest
 {
@@ -33,14 +30,12 @@ namespace UnitTest
         public void Order_Have_Stock_Available()
         {
             //Orders have stock available
-            fulfilmentOrder.CalculateStockAvailability();
+            var orders = fulfilmentOrder.CalculateStockAvailability();
+
+            var fulfilledOrders = orders.FirstOrDefault().Orders.Where(o => o.Status == nameof(OrderStatusEnum.Fulfilled));
+
+            Assert.True(fulfilledOrders.Select(o => o).Count() == 1);
         }
-       
-        private void Test()
-        {
-            throw new NotImplementedException();
-        }
-        
 
         [Fact]
         public void Submit_Fulfilment() //TO DO
@@ -48,8 +43,7 @@ namespace UnitTest
             //When I submit the fulfilment
             //Then I expect the order to be processed
             //And I expect that the order status is “Fulfilled”
-            //And I expect that product quantity is updated 
-            RestockProductTest.Product_Can_Be_Restocked();
+            //And I expect that product quantity is updated
         }
 
 
