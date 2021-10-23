@@ -4,6 +4,7 @@ using Service;
 using System.Linq;
 using Service.Models;
 using System.Collections.Generic;
+using Test;
 
 namespace UnitTest
 {
@@ -22,7 +23,8 @@ namespace UnitTest
         public void Orders_Have_Products()
         {
             //Orders have product included
-            var hasProduct = fulfilmentOrder.GetOrdersByStatus(nameof(OrderStatusEnum.Pending)).Select(o => o.Products).Any();
+            var hasProduct = fulfilmentOrder.GetOrdersByStatus(nameof(OrderStatusEnum.Pending))
+                                            .Select(o => o.Products).Any();
 
             Assert.True(hasProduct);
         }
@@ -46,7 +48,8 @@ namespace UnitTest
             //When I submit the fulfilment
             //Then I expect the order to be processed
             //And I expect that the order status is “Fulfilled”
-            //And I expect that product quantity is updated
+            //And I expect that product quantity is updated 
+            RestockProductTest.Product_Can_Be_Restocked();
         }
 
 
