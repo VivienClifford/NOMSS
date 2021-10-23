@@ -16,5 +16,12 @@ namespace Service
         /// </summary>
         /// <returns></returns>
         IEnumerable<OrderProduct> GetOrdersByStatus(string status);
+
+        /// <summary>
+        /// Calculates stock availability and whether an order can be fulfilled.
+        /// </summary>
+        /// <returns></returns>
+        List<OrderItemAvailability> CalculateStockAvailability();
+
     }
 }

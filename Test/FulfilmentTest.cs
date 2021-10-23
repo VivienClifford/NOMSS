@@ -15,37 +15,33 @@ namespace UnitTest
         public void Orders_Awaiting_Fulfilment()
         {
             //Find orders waiting to be fulfilled
-            Assert.True(fulfilmentOrder.GetOrdersByStatus("pending").Any());
+            Assert.True(fulfilmentOrder.GetOrdersByStatus(nameof(OrderStatusEnum.Pending)).Any());
         }
 
         [Fact]
         public void Orders_Have_Products()
         {
             //Orders have product included
-            var hasProduct = fulfilmentOrder.GetOrdersByStatus("pending").Select(o => o.Products).Any();
+            var hasProduct = fulfilmentOrder.GetOrdersByStatus(nameof(OrderStatusEnum.Pending)).Select(o => o.Products).Any();
 
             Assert.True(hasProduct);
-        }
-
-        private IEnumerable<OrderProduct> CalculateStockAvailability()
-        {
-            var pendingOrders = fulfilmentOrder.GetOrdersByStatus("pending");
-            var orders = pendingOrders.Select(o => o.Orders); //Where(o => o.Orders.Select(or => or.Items))
-            var products = pendingOrders.Select(o => o.Products);
-
-            return pendingOrders;
         }
 
         [Fact]
         public void Order_Have_Stock_Available()
         {
-            var available = 
-
             //Orders have stock available
+            fulfilmentOrder.CalculateStockAvailability();
         }
+       
+        private void Test()
+        {
+            throw new NotImplementedException();
+        }
+        
 
         [Fact]
-        public void Submit_Fulfilment()
+        public void Submit_Fulfilment() //TO DO
         {
             //When I submit the fulfilment
             //Then I expect the order to be processed

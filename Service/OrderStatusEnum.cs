@@ -1,6 +1,6 @@
 ﻿namespace Service
 {
-    enum OrderStatusEnum 
+    public enum OrderStatusEnum 
     {
         New, 
         Pending,
