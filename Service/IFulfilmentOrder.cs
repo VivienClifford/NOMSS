@@ -21,7 +21,7 @@ namespace Service
         /// Calculates stock availability and whether an order can be fulfilled.
         /// </summary>
         /// <returns></returns>
-        List<OrderItemAvailability> CalculateStockAvailability();
+        IEnumerable<OrderProduct> CalculateStockAvailability();
 
     }
 }
