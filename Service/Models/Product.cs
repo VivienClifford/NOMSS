@@ -8,5 +8,16 @@
         public int ReorderThreshold { get; set; }
         public int ReorderAmount { get; set; }
         public int DeliveryLeadTime { get; set; }
+
+        public bool NeedRestock
+        {
+            get
+            {
+                if ((QuantityOnHand == 0) || (QuantityOnHand < ReorderThreshold))
+                    return true;
+
+                return false;
+            }
+        }
     }
 }
