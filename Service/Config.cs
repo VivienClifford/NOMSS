@@ -1,9 +1,8 @@
-﻿using System;
-
+﻿
 namespace Service
 {
-    class Config
+    public class Config
     {
-        public static string DataFile = $"{Environment.CurrentDirectory}\\data.json";
+        public static string DataFilePath = "\\Service\\data.json";
     }
 }
