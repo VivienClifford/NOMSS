@@ -10,7 +10,7 @@ I want to be able to initiate an order run.
 So that I can deliver orders according to my pending orders and inventory availability.
 
 ---
-## Questions\Assumptions:
+## Questions/Assumptions:
 Normally, these would be some of the questions I would be asking undertaking this kind of task. I have noted the assumptions I have made along the way.
 
 **1. Are the product held in a single warehouse, or potentially multiple warehouses where different products are stored?** 
