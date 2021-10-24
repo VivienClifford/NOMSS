@@ -15,24 +15,28 @@ Normally, these would be some of the questions I would be asking undertaking thi
 
 **1. Are the product held in a single warehouse, or potentially multiple warehouses where different products are stored?** 
 
-For simplicity's sake, I have taken the road that there's only one warehouse. This would increase the complexity to process the order run if we had to calculate quantities of multiple products over multiple warehouses/other locations.
+    For simplicity, I have taken the road that there's only one warehouse. This would increase the complexity to process the order run if we had to calculate quantities of multiple products over multiple warehouses/other locations.
 
 **2. What is the normal process to complete an order?**
 
-Status transition (Open => Pending => (Fulfilled/UnFulfilled))
+    Status transition (New => Pending => (Fulfilled/UnFulfilled))
 
 **3. Does the warehouse officer fulfill other roles in the order process?**
 
-To see if any other processes need to be accounted for.
+    To see if any other processes need to be accounted for.
 
 **4. Clarification on the data we need to supply to generate a Purchase Order?**
 
-- Company contact information (name, address, phone number)
-- Shippment method
-- Products (SKU, productId, name/description, qty, unit price)
-- Reorder Date
+    - Company contact information (name, address, phone number)
+    - Shippment method
+    - Products (SKU, productId, name/description, qty, unit price)
+    - Reorder Date
 
-I have chosen to create a confirmation message to say which products have been created on a Purchase Order. We also don't want to be creating multiple Purchase Orders, if the restock threshold has already been reached.
+    I have chosen to create API Endpoint to create some of these details. I have taken into consideration that we also don't want to be creating multiple Purchase Orders, if the restock threshold has already been reached. This has been observed as a potential problem, if there were more order runs, we would need to store this data in a key value pair or database alternative. This way we would be able to determine whether a Purchase Order has already been ordered for a product recently.
+
+**5. Lead time?**
+
+    This seems to be some sort of time production processed has to fulfil an order. This field has not been used.
 
 ---
 
@@ -60,12 +64,15 @@ These are likely some other areas that are related to the main entities. This wa
 
 ---
 ## APIs
-    • api/v1/warehouse/fulfilment
-    • api/v1/warehouse/products
-    • api/v1/warehouse/products/{id}
-    • api/v1/warehouse/products/restock (an array of ProductIds to be restocked)
-    • api/v1/warehouse/orders
-    • api/v1/warehouse/orders/{id}
+    Completed:
+    • [POST] api/v1/warehouse/fulfilment
+    • [GET] api/v1/warehouse/products/restock 
+
+    Not Completed
+    • [GET] api/v1/warehouse/products
+    • [GET] api/v1/warehouse/products/{id}
+    • [GET] api/v1/warehouse/orders
+    • [GET] api/v1/warehouse/orders/{id}
 
 ---
 ## Infrastructure:
@@ -78,3 +85,12 @@ The data will only be supplied through the associated data.json file, no storage
     • Services
     • Unit Test
     • Sample dataset - data.json
+
+## Reflection:
+
+If I had to redo this task, these would be the items I would add or change. 
+    
+- For the API endpoints in particular, I would change them to be asyncronous. I would also create more API endpoints. 
+- Write tests for the API endpoints and try to introduce the Carter library
+- Add logging (errors and warnings)
+- Write more saftey checks and also look more deeply into security
