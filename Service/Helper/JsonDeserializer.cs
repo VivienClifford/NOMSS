@@ -16,7 +16,7 @@ namespace Service.Helper
             return JsonConvert.DeserializeObject<OrderProduct>(textFileData);
         }
 
-        private static string GetRelativePath()
+        public static string GetRelativePath()
         {
             var baseDIR = AppDomain.CurrentDomain.BaseDirectory;
 
