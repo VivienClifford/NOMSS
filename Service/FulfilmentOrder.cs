@@ -15,6 +15,11 @@ namespace Service
             return orderProduct;
         }
 
+        /// <summary>
+        /// Returns the OrderProduct with a filtered order list by chosen status
+        /// </summary>
+        /// <param name="status"></param>
+        /// <returns></returns>
         public OrderProduct GetOrdersByStatus(string status)
         {
             if (string.IsNullOrEmpty(status))
@@ -30,16 +35,19 @@ namespace Service
             return statusOrder;
         }
 
+        /// <summary>
+        /// Processes the order and calculates stock and by using default data
+        /// </summary>
+        /// <returns></returns>
         public OrderProduct CalculateStockAvailability()
         {
             var pendingOrders = GetOrdersByStatus(nameof(OrderStatusEnum.Pending));
 
-            return OrderProcessing.ProcessOrders(pendingOrders);
-
+            return OrderProcess.ProcessOrders(pendingOrders);
         }
 
         /// <summary>
-        /// API
+        /// Processes the order and calculates stock and by using default filtered data by selected orderIds.
         /// </summary>
         /// <param name="orderIds"></param>
         /// <returns></returns>
@@ -52,7 +60,7 @@ namespace Service
 
             OrderProduct filteredOrders = new(product, orderWithMatchingIds);
 
-            return OrderProcessing.ProcessOrders(filteredOrders);
+            return OrderProcess.ProcessOrders(filteredOrders);
 
         }
     }
