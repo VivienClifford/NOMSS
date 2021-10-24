@@ -16,6 +16,6 @@ namespace Service
         /// </summary>
         /// <param name="orderProducts"></param>
         /// <returns></returns>
-        IEnumerable<Product> RestockProducts(IEnumerable<OrderProduct> orderProducts);
+        IEnumerable<Product> RestockProducts(OrderProduct orderProducts);
     }
 }

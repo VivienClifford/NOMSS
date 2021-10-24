@@ -9,18 +9,14 @@ namespace Service
         /// <summary>
         /// Checks for the order items can be fulfiled
         /// </summary>
-        /// <param name="pendingOrders"></param>
+        /// <param name="pendingOrder"></param>
         /// <returns></returns>
-        public static IEnumerable<OrderProduct> ProcessOrders(IEnumerable<OrderProduct> pendingOrders)
+        public static OrderProduct ProcessOrders(OrderProduct pendingOrder)
         {
-            List<OrderProduct> processedOrders = new();
+            if (pendingOrder == null)
+                throw new System.Exception($"{nameof(ProcessOrders)} parameter: {nameof(pendingOrder)} is null");
 
-            foreach (var pendingOrder in pendingOrders) {
-
-                processedOrders = UpdateStatus(pendingOrder);
-            }
-
-            return processedOrders;
+            return UpdateStatus(pendingOrder);
         }
 
         /// <summary>
@@ -28,7 +24,7 @@ namespace Service
         /// </summary>
         /// <param name="pendingOrder"></param>
         /// <returns></returns>
-        private static List<OrderProduct> UpdateStatus(OrderProduct pendingOrder)
+        private static OrderProduct UpdateStatus(OrderProduct pendingOrder)
         {
             List<Product> products = pendingOrder.Products;
             List<Order> orders = pendingOrder.Orders;
@@ -49,7 +45,7 @@ namespace Service
                 }
 
             }
-            return new List<OrderProduct>() { new OrderProduct(products, orders) };
+            return new OrderProduct(products, orders);
         }
 
         /// <summary>

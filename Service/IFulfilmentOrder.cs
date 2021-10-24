@@ -1,5 +1,4 @@
 ﻿using Service.Models;
-using System.Collections.Generic;
 
 namespace Service
 {
@@ -15,13 +14,19 @@ namespace Service
         /// Returns all orders matching the status
         /// </summary>
         /// <returns></returns>
-        IEnumerable<OrderProduct> GetOrdersByStatus(string status);
+        OrderProduct GetOrdersByStatus(string status);
 
         /// <summary>
         /// Calculates stock availability and whether an order can be fulfilled.
         /// </summary>
         /// <returns></returns>
-        IEnumerable<OrderProduct> CalculateStockAvailability();
+        OrderProduct CalculateStockAvailability();
+
+        /// <summary>
+        /// Calculates stock availability and whether an order can be fulfilled, using the supplied OrderIds
+        /// </summary>
+        /// <returns></returns>
+        OrderProduct CalculateStockAvailability(int[] orderIds);
 
     }
 }

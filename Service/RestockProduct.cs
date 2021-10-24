@@ -6,26 +6,41 @@ namespace Service
 {
     public class RestockProduct : IRestockProduct
     {
+        private readonly IFulfilmentOrder fulfilmentOrder;
 
-        private readonly IFulfilmentOrder fulfilmentOrder = new FulfilmentOrder();
+        public RestockProduct()
+        {
+            this.fulfilmentOrder = new FulfilmentOrder();
+        }
 
-
+        /// <summary>
+        /// Returns products which need to be restocked
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Product> RestockProducts()
         {
-            return GetRestock(fulfilmentOrder.CalculateStockAvailability());
+            return FilterProductsToRestock(fulfilmentOrder.CalculateStockAvailability());
         }
 
-        public IEnumerable<Product> RestockProducts(IEnumerable<OrderProduct> orderProducts)
+        /// <summary>
+        /// Returns products which need to be restocked, using the data supplied
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Product> RestockProducts(OrderProduct orderProducts)
         {
-            return GetRestock(orderProducts);
+            return FilterProductsToRestock(orderProducts);
         }
 
-        private static IEnumerable<Product> GetRestock(IEnumerable<OrderProduct> orderProducts)
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="orderProduct"></param>
+        /// <returns></returns>
+        private static IEnumerable<Product> FilterProductsToRestock(OrderProduct orderProduct)
         {
-            var products = orderProducts.Select(p => p.Products.Where(pr => pr.NeedRestock.Equals(true)));
+            var products = orderProduct.Products.Where(pr => pr.NeedRestock.Equals(true));
 
-            return (IEnumerable<Product>)products;
+            return products;
         }
-
     }
 }
