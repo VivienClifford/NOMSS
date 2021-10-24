@@ -94,4 +94,4 @@ If I had to redo this task, these would be the items I would add or change.
 - Write tests for the API endpoints and try to introduce the Carter library
 - Add logging (errors and warnings)
 - Write more safety checks and also look more deeply into security
-- Reengineer the calculation of fulfilled orders, an optimised algorithm to determine whether multiple orders can be processed over a single order( e.g 2 orders who have smaller quantities (qty 2, qty 3) to be processed, over 1 order (qty 4) which has a larger quantity required (only has 5 qty available on hand))
+- Reengineer the calculation of fulfilled orders, create an optimised algorithm to determine whether multiple orders can be processed over a single order( e.g 2 orders who have smaller quantities (qty 2, qty 3) to be processed, over 1 order (qty 4) which has a larger quantity required (only has 5 qty available on hand))
