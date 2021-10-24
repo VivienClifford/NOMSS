@@ -1,19 +1,23 @@
-using System;
-using Xunit;
 using Service;
 using System.Linq;
+using Xunit;
 
 namespace UnitTest
 {
     public class FulfilmentTest
     {
-        private readonly IFulfilmentOrder fulfilmentOrder = new FulfilmentOrder();
+        private readonly IFulfilmentOrder fulfilmentOrder;
+
+        public FulfilmentTest()
+        {
+            this.fulfilmentOrder = new FulfilmentOrder();
+        }
 
         [Fact]
         public void Orders_Awaiting_Fulfilment()
         {
             //Find orders waiting to be fulfilled
-            Assert.True(fulfilmentOrder.GetOrdersByStatus(nameof(OrderStatusEnum.Pending)).Any());
+            Assert.True(fulfilmentOrder.GetOrdersByStatus(nameof(OrderStatusEnum.Pending)) != null);
         }
 
         [Fact]
@@ -21,7 +25,7 @@ namespace UnitTest
         {
             //Orders have product included
             var hasProduct = fulfilmentOrder.GetOrdersByStatus(nameof(OrderStatusEnum.Pending))
-                                            .Select(o => o.Products).Any();
+                             .Products.Any();
 
             Assert.True(hasProduct);
         }
@@ -32,7 +36,7 @@ namespace UnitTest
             //Orders have stock available
             var orders = fulfilmentOrder.CalculateStockAvailability();
 
-            var fulfilledOrders = orders.FirstOrDefault().Orders.Where(o => o.Status == nameof(OrderStatusEnum.Fulfilled));
+            var fulfilledOrders = orders.Orders.Where(o => o.Status == nameof(OrderStatusEnum.Fulfilled));
 
             Assert.True(fulfilledOrders.Select(o => o).Count() == 1);
         }
@@ -45,7 +49,5 @@ namespace UnitTest
             //And I expect that the order status is “Fulfilled”
             //And I expect that product quantity is updated
         }
-
-
     }
 }
