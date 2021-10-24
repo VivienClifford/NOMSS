@@ -15,16 +15,16 @@ namespace Service
             return GetRestock(fulfilmentOrder.CalculateStockAvailability());
         }
 
-        public IEnumerable<Product> RestockProducts(IEnumerable<OrderProduct> orderProducts)
+        public IEnumerable<Product> RestockProducts(OrderProduct orderProducts)
         {
             return GetRestock(orderProducts);
         }
 
-        private static IEnumerable<Product> GetRestock(IEnumerable<OrderProduct> orderProducts)
+        private static IEnumerable<Product> GetRestock(OrderProduct orderProduct)
         {
-            var products = orderProducts.Select(p => p.Products.Where(pr => pr.NeedRestock.Equals(true)));
+            var products = orderProduct.Products.Where(pr => pr.NeedRestock.Equals(true));
 
-            return (IEnumerable<Product>)products;
+            return products;
         }
 
     }
