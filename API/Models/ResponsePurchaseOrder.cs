@@ -1,6 +1,6 @@
 ﻿namespace API.Models
 {
-    public class ResponseRestockProduct
+    public class ResponsePurchaseOrder
     {
         public int ProductId { get; set; }
 
@@ -10,7 +10,7 @@
 
         public int ReorderAmount { get; set; }
 
-        public ResponseRestockProduct(int ProductId, string Description, int QuantityOnHand, int ReorderAmount)
+        public ResponsePurchaseOrder(int ProductId, string Description, int QuantityOnHand, int ReorderAmount)
         {
             this.ProductId = ProductId;
             this.Description = Description;

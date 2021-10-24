@@ -20,6 +20,11 @@ namespace API.Controllers
             this._restockProduct = new RestockProduct();
         }
 
+        /// <summary>
+        /// Order fulfilment process to determine which orders aren't able to be fulfilled
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("api/v1/warehouse/fulfilment")]
         public Dictionary<string, List<int>> PostWarehouseFulfilment([FromBody] RequestWarehouseFulfilment request)
@@ -32,12 +37,20 @@ namespace API.Controllers
             return UnfulfillableOrder.GetUnfulfillableOrders(orderProducts);
         }
 
+        /// <summary>
+        /// Retrieves the products which need to be restocked
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("api/v1/warehouse/products/restock")]
-        public IEnumerable<ResponseRestockProduct> GetWarehouseRestockProduct()
+        public IEnumerable<ResponsePurchaseOrder> GetWarehouseRestockProduct()
         {
             var products = _restockProduct.RestockProducts()
-                           .Select(p => new ResponseRestockProduct(p.ProductId, p.Description, p.QuantityOnHand, p.ReorderAmount));
+                           .Select(p => new ResponsePurchaseOrder(
+                                          p.ProductId, 
+                                          p.Description, 
+                                          p.QuantityOnHand, 
+                                          p.ReorderAmount));
 
             return products;
         }
