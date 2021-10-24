@@ -32,11 +32,11 @@ Normally, these would be some of the questions I would be asking undertaking thi
     - Products (SKU, productId, name/description, qty, unit price)
     - Reorder Date
 
-    I have chosen to create API Endpoint to create some of these details. I have taken into consideration that we also don't want to be creating multiple Purchase Orders, if the restock threshold has already been reached. This has been observed as a potential problem, if there were more order runs, we would need to store this data in a key value pair or database alternative. This way we would be able to determine whether a Purchase Order has already been ordered for a product recently.
+    I have chosen to create an API Endpoint to create some of these details. I have taken into consideration that we also don't want to be creating multiple Purchase Orders if the restock threshold has already been reached. This has been observed as a potential problem, if there were more order runs, we would need to store this data in a key-value pair or database alternative. This way we would be able to determine whether a Purchase Order has already been ordered for a product recently.
 
 **5. Lead time?**
 
-    This seems to be some sort of time production processed has to fulfil an order. This field has not been used.
+    This seems to be some sort of time production processed has to fulfill an order. This field has not been used.
 
 ---
 
@@ -50,7 +50,7 @@ Normally, these would be some of the questions I would be asking undertaking thi
 ### Related entities
 These are likely some other areas that are related to the main entities. This was used as a brainstorming exercise. 
 
-  - ProductLocation – Help to locate products within the warehouse. e.g. shelf/aisle or identifying location.
+  - ProductLocation – Help to locate products within the warehouse. e.g. shelf/aisle or identifying a location.
   - Warehouse
   - Supplier
   - Customer
@@ -82,15 +82,15 @@ To begin with, I'm going to create a simple N-tier design, to flesh out core pro
 The data will only be supplied through the associated data.json file, no storage implementation has been created for this project.
     
     • API
-    • Services
-    • Unit Test
+    • Service
+    • Test
     • Sample dataset - data.json
 
 ## Reflection:
 
 If I had to redo this task, these would be the items I would add or change. 
     
-- For the API endpoints in particular, I would change them to be asyncronous. I would also create more API endpoints. 
+- For the API endpoints, in particular, I would change them to be asynchronous. I would also create more API endpoints. 
 - Write tests for the API endpoints and try to introduce the Carter library
 - Add logging (errors and warnings)
-- Write more saftey checks and also look more deeply into security
+- Write more safety checks and also look more deeply into security
