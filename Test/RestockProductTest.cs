@@ -6,22 +6,19 @@ namespace Test
 {
     public class RestockProductTest
     {
-        private readonly IRestockProduct restockOrder;
+        private readonly IFulfilmentOrder _fulfilmentOrder;
+        private readonly IRestockProduct _restockOrder;
 
         public RestockProductTest()
         {
-            this.restockOrder = new RestockProduct();
-        }
-
-        [Fact]
-        public static void Calculate_Product_Restock_Threshold_Reached()
-        {
+            this._restockOrder = new RestockProduct();
+            this._fulfilmentOrder = new FulfilmentOrder();
         }
 
         [Fact]
         public void Product_Can_Be_Restocked()
         {
-            var restock = restockOrder.RestockProducts();
+            var restock = _restockOrder.RestockProducts();
             Assert.True(restock.All(r => r.NeedRestock == true));
         }
     }

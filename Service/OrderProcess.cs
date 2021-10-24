@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Service
 {
-    public class OrderProcessing
+    public class OrderProcess
     {
         /// <summary>
         /// Checks for the order items can be fulfiled
@@ -37,11 +37,11 @@ namespace Service
                 {
                     //order has been fulfilled
                     products = updatedProducts;
-                    order.Status = nameof(OrderStatusEnum.Fulfilled); //need to test
+                    order.Status = nameof(OrderStatusEnum.Fulfilled);
                 }
                 else
                 {
-                    order.Status = $"Error: {nameof(OrderStatusEnum.Unfulfillable)}"; //need to test, need to raise error
+                    order.Status = $"Error: {nameof(OrderStatusEnum.Unfulfillable)}";
                 }
 
             }
